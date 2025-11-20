@@ -1,7 +1,6 @@
 langchain
 langchain-core
 langchain-community
-faiss-cpu
 pymongo
 python-dotenv
 fastapi
