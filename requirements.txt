@@ -1,9 +1,7 @@
 langchain
 langchain-core
 langchain-community
-langchain-groq
 faiss-cpu
-sentence-transformers
 pymongo
 python-dotenv
 fastapi
@@ -14,3 +12,4 @@ langchain-openai
 PyJWT
 passlib[bcrypt]
 python-jose[cryptography]
+serial
