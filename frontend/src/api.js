@@ -1,14 +1,32 @@
 import axios from "axios";
 
 // Centralized API configuration with CORS support
-const API_BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:8000";
+// Use environment variable or detect server IP from current origin
+const getApiBaseUrl = () => {
+  // If VITE_API_URL is set, use it
+  if (import.meta.env.VITE_API_URL) {
+    return import.meta.env.VITE_API_URL;
+  }
+  
+  // If running on server (public IP), use the server's IP for backend
+  if (window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
+    // Extract the hostname (IP or domain) from current origin
+    const hostname = window.location.hostname;
+    return `http://${hostname}:8000`;
+  }
+  
+  // Default to localhost for local development
+  return "http://localhost:8000";
+};
+
+const API_BASE_URL = getApiBaseUrl();
 
 const API = axios.create({
   baseURL: API_BASE_URL,
   headers: {
     "Content-Type": "application/json",
   },
-  withCredentials: true, // Allow cookies/credentials for CORS
+  withCredentials: false, // Set to false when backend uses allow_origins=["*"]
 });
 
 // Request interceptor to add common headers
