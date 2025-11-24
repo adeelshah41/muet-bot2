@@ -13,7 +13,15 @@ export default defineConfig({
     host: '0.0.0.0', // Allow external access
     port: 5173,
     // Allow all hosts for development (ngrok, localtunnel, etc.)
-    allowedHosts: 'all',
+    allowedHosts: [
+      'muet.thebotss.com',
+      'localhost',
+      '.localhost',
+      '127.0.0.1',
+      '0.0.0.0',
+      '.ngrok.io',
+      '.ngrok-free.app',
+    ],
     hmr: {
       clientPort: 443, // For ngrok HTTPS
     },
