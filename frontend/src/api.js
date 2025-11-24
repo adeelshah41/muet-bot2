@@ -5,6 +5,7 @@ import axios from "axios";
 const getApiBaseUrl = () => {
   // If VITE_API_URL is set, use it
   if (import.meta.env.VITE_API_URL) {
+    console.log('Using VITE_API_URL:', import.meta.env.VITE_API_URL);
     return import.meta.env.VITE_API_URL;
   }
   
@@ -12,14 +13,18 @@ const getApiBaseUrl = () => {
   if (window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
     // Extract the hostname (IP or domain) from current origin
     const hostname = window.location.hostname;
-    return `http://${hostname}:8000`;
+    const apiUrl = `http://${hostname}:8000`;
+    console.log('Detected server environment. Using API URL:', apiUrl);
+    return apiUrl;
   }
   
   // Default to localhost for local development
+  console.log('Using localhost API URL');
   return "http://localhost:8000";
 };
 
 const API_BASE_URL = getApiBaseUrl();
+console.log('Final API_BASE_URL:', API_BASE_URL);
 
 const API = axios.create({
   baseURL: API_BASE_URL,
