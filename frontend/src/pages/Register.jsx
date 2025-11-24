@@ -2,7 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-const API = "http://localhost:8000";
+const API = "http://98.93.38.52:8000";
 
 export default function Register() {
   const [fullname, setFullname] = useState("");
