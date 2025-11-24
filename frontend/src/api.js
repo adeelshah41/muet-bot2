@@ -2,7 +2,7 @@ import axios from "axios";
 
 // Hardcoded backend URL - Backend is hosted on the server
 // Frontend can be accessed via ngrok or any other service
-const API_BASE_URL = "http://98.93.38.52:8000";
+const API_BASE_URL = "https://muetback.thebotss.com";
 
 console.log('Using API_BASE_URL:', API_BASE_URL);
 
