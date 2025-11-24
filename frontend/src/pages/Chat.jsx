@@ -1,16 +1,15 @@
 import { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import Header from "../components/Header";
+import { API_BASE_URL } from "../api";
 
 import { Plus, MessageSquare } from "lucide-react"; // for icons
 
-const API = "http://localhost:8000";
-
-export default function Chat() {
+export default function Chat({ token: tokenProp }) {
   const [recording, setRecording] = useState(false);
   const mediaRecorderRef = useRef(null);
   const audioChunksRef = useRef([]);
-  const [token, setToken] = useState("");
+  const [token, setToken] = useState(tokenProp || "");
   const [email, setEmail] = useState("");
   const [input, setInput] = useState("");
   const [messages, setMessages] = useState([]);
@@ -42,21 +41,21 @@ export default function Chat() {
   // }, []);
 
   useEffect(() => {
-  const t = localStorage.getItem("access_token");
+  const t = tokenProp || localStorage.getItem("token");
   if (!t) return window.location.href = "/";
   setToken(t);
 
-  axios.get(`${API}/me`, { params: { token: t } })
+  axios.get(`${API_BASE_URL}/me`, { params: { token: t } })
     .then((r) => setEmail(r.data?.email || "" ))
     .catch(() => {});
     
-  fetchConversations();
-}, []);
+  fetchConversations(t);
+}, [tokenProp]);
 
   // Modify fetchConversations to accept a token parameter
   const fetchConversations = async (t) => {
     try {
-      const res = await axios.get(`${API}/history`, { params: { token: t, limit: 50 } });
+      const res = await axios.get(`${API_BASE_URL}/history`, { params: { token: t, limit: 50 } });
       const grouped = res.data.reduce((acc, m, idx) => {
         const convId = Math.floor(idx / 10);
         if (!acc[convId]) acc[convId] = [];
@@ -103,7 +102,7 @@ export default function Chat() {
     const formData = new FormData();
     formData.append("file", blob, "recording.webm");
 
-    const res = await fetch("http://localhost:8000/speech-to-text", {
+    const res = await fetch(`${API_BASE_URL}/speech-to-text`, {
       method: "POST",
       body: formData,
     });
@@ -128,7 +127,7 @@ export default function Chat() {
   setInput("");
 
   try {
-    const res = await axios.post(`${API}/chat`, { message: messageToSend, token });
+    const res = await axios.post(`${API_BASE_URL}/chat`, { message: messageToSend, token });
     const botMsg = {
       role: "assistant",
       content: res.data.answer,
@@ -151,7 +150,7 @@ export default function Chat() {
 };
 
   const onLogout = () => {
-    localStorage.removeItem("access_token");
+    localStorage.removeItem("token");
     localStorage.removeItem("conversations"); // Remove chat history when logging out
     window.location.href = "/";
   };

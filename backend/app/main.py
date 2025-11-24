@@ -7,13 +7,15 @@ import uvicorn
 
 app = FastAPI()
 
-# CORS setup
+# CORS setup - Allow all origins for development
+# In production, replace ["*"] with specific frontend URLs
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Set to your frontend's address
+    allow_origins=["*"],  # Allow all origins (for development)
     allow_credentials=True,
-    allow_methods=["*"],  # Allow all HTTP methods
+    allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"],  # Allow all HTTP methods
     allow_headers=["*"],  # Allow all headers
+    expose_headers=["*"],  # Expose all headers to frontend
 )
 
 app.include_router(auth_router)

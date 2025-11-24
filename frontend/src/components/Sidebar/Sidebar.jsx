@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { API_BASE_URL } from "../../api";
 
 export default function Sidebar({ token, onSelectChat }) {
   const [history, setHistory] = useState([]);
@@ -7,7 +8,7 @@ export default function Sidebar({ token, onSelectChat }) {
   useEffect(() => {
     const fetchHistory = async () => {
       try {
-        const res = await axios.get("http://localhost:8000/history", {
+        const res = await axios.get(`${API_BASE_URL}/history`, {
           params: { token },
         });
         setHistory(res.data);

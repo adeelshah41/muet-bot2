@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Sidebar from "../components/Sidebar/Sidebar";
+import { API_BASE_URL } from "../../api";
 
 export default function Chat({ token }) {
   const [messages, setMessages] = useState([]);
@@ -15,7 +16,7 @@ export default function Chat({ token }) {
 
   const sendMessage = async () => {
     setMessages([...messages, { role: "user", content: input }]);
-    const response = await fetch("http://localhost:8000/chat", {
+    const response = await fetch(`${API_BASE_URL}/chat`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ message: input, token }),

@@ -1,10 +1,9 @@
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { API_BASE_URL } from "../api";
 
-const API = "http://localhost:8000";
-
-export default function Login() {
+export default function Login({ setToken }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -19,17 +18,22 @@ const handleLogin = async (e) => {
     try {
         // Update the payload to match what the backend expects
         const response = await axios.post(
-            `${API}/login`,
+            `${API_BASE_URL}/login`,
             new URLSearchParams({
                 username: email, // backend expects username and password
                 password: password
             }),
             { headers: { "Content-Type": "application/x-www-form-urlencoded" } }
         );
-        localStorage.setItem("access_token", response.data.access_token);
+        const token = response.data.access_token;
+        localStorage.setItem("token", token); // Store as "token" to match App.jsx
+        if (setToken) {
+          setToken(token); // Update App state
+        }
         navigate("/chat");
     } catch (err) {
-        setError("Invalid credentials. Please try again.");
+        console.error("Login error:", err);
+        setError(err.response?.data?.detail || "Invalid credentials. Please try again.");
     } finally {
         setLoading(false);
     }
