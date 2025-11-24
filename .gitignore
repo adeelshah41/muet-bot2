@@ -22,3 +22,8 @@ Thumbs.db
 
 # VS Code
 .vscode/
+
+# Database files
+*.sqlite3
+*.db
+backend/app/chatbot/vector_store/
