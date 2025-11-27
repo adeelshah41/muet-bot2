@@ -1,6 +1,3 @@
-Here is a clean, professional **README.md** for your project.
-You can copy-paste it directly into your `Readme` file (or `README.md`).
-
 ---
 
 # 💬 ** Voice-Enabled University Assistant**
@@ -147,3 +144,4 @@ project/
 
 Pull requests are welcome.
 Feel free to open an issue for bugs, discussions, or new features.
+
