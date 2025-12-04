@@ -63,8 +63,20 @@ pip install -r requirements.txt
 ---
 
 # 🖥 **Running the Project**
+## **4️⃣ Setup Vector store **
+This project uses a vector store for Retrieval-Augmented Generation (RAG).
 
-## **4️⃣ Start the Backend**
+🔗 Download Vector Store (Google Drive) — Placeholder
+
+👉 Vector Store Link: [https://drive.google.com/drive/folders/1YbwiLCpONLqB7A431Ml4Y1k4VfoJ-33d?usp=drive_link]
+
+After downloading, place the vector store folder in:
+
+backend/app/chatbot/
+
+
+(Create the folder if it doesn’t exist.)
+## **5️⃣ Start the Backend**
 
 Navigate into the `backend` folder:
 
@@ -86,7 +98,7 @@ http://127.0.0.1:8000
 
 ---
 
-## **5️⃣ Start the Frontend**
+## **6️⃣ Start the Frontend**
 
 Open a **new terminal**, then:
 
@@ -144,4 +156,5 @@ project/
 
 Pull requests are welcome.
 Feel free to open an issue for bugs, discussions, or new features.
+
 
